@@ -2,9 +2,7 @@ import { NextResponse } from "next/server";
 
 import {
   PROTOCOL,
-  CLOUDINARY_API_KEY,
   CLOUDINARY_CLOUD_NAME,
-  CLOUDINARY_KEY,
   BASE_URL,
   PHOTO_ENDPOINT,
   TAG,
