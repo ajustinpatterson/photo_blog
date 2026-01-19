@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import Photo from "./components/photo/photo";
 import {
   QueryClient,
   QueryClientProvider,
@@ -13,6 +13,9 @@ const queryClient = new QueryClient();
 const fetchPhotos = async () => {
   try {
     const response = await fetch(`/api/photos`);
+    const data = await response.json();
+    const { resources } = data;
+    const result = resources.sort((a, b) => a?.created_at < b?.created_at);
     console.log(response);
   } catch (error) {
     console.error(error);
@@ -20,12 +23,17 @@ const fetchPhotos = async () => {
 };
 
 const PhotoBlog = () => {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["photos"],
     queryFn: fetchPhotos,
   });
 
-  return <h1>Hello, Next.js!</h1>;
+  return (
+    <>
+      <h1>Hello, Next.js!</h1>
+      <Photo />
+    </>
+  );
 };
 
 const Page = () => {
