@@ -2,7 +2,7 @@ import { CldImage } from "next-cloudinary";
 
 import "./photo.module.scss";
 
-const Photo = () => {
+const Photo = ({ publicId }: { publicId: string }) => {
   // TODO: if no caption, do not show drawer
 
   return (
@@ -11,7 +11,7 @@ const Photo = () => {
       <CldImage
         width="960"
         height="600"
-        src="main-sample"
+        src={publicId}
         sizes="100vw"
         alt="Description of my image"
       />

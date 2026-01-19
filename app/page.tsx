@@ -15,8 +15,10 @@ const fetchPhotos = async () => {
     const response = await fetch(`/api/photos`);
     const data = await response.json();
     const { resources } = data;
-    const result = resources.sort((a, b) => a?.created_at < b?.created_at);
-    console.log(response);
+    const result = resources
+      .sort((a, b) => a?.created_at < b?.created_at)
+      .map((el: any) => el.public_id);
+    return result;
   } catch (error) {
     console.error(error);
   }
@@ -27,11 +29,14 @@ const PhotoBlog = () => {
     queryKey: ["photos"],
     queryFn: fetchPhotos,
   });
+  const photoList = data?.slice(0, 5);
 
   return (
     <>
       <h1>Hello, Next.js!</h1>
-      <Photo />
+      {photoList?.map((id, index) => (
+        <Photo key={index} publicId={id} />
+      ))}
     </>
   );
 };

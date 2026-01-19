@@ -11,7 +11,7 @@ import {
 export async function GET(request: Request) {
   try {
     const response = await fetch(
-      `${PROTOCOL}://${BASE_URL}/${CLOUDINARY_CLOUD_NAME}/${PHOTO_ENDPOINT}/${TAG}.json`,
+      `${PROTOCOL}://${BASE_URL}/${CLOUDINARY_CLOUD_NAME}/${PHOTO_ENDPOINT}/${TAG}.json?media_metadata=true`,
       { method: "GET" },
     );
 
