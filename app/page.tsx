@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Photo from "./components/photo/photo";
-import { fetchPhotos } from "@/services/photosService";
+import { fetchPhotos, fetchPhotoPage } from "@/services/photosService";
 import {
   QueryClient,
   QueryClientProvider,
@@ -12,18 +13,131 @@ import {
 const queryClient = new QueryClient();
 
 const PhotoBlog = () => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["photos"],
+  const observerTarget = useRef<HTMLDivElement>(null);
+  const photoRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+
+  const {
+    data: allPhotos,
+    isLoading: areAlPhotosLoading,
+    isError: loadAllPhotosError,
+  } = useQuery({
+    queryKey: ["allPhotos"],
     queryFn: fetchPhotos,
   });
-  const photoList = data?.slice(0, 5);
+
+  const {
+    data: photoPageData,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["photos", allPhotos],
+    queryFn: fetchPhotoPage,
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => lastPage.nextPage,
+    enabled: !!allPhotos && allPhotos.length > 0, // Only run when we have photos
+  });
+
+  const photos = photoPageData?.pages.flatMap((page) => page.photos) || [];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "100px",
+      },
+    );
+
+    if (observerTarget.current) {
+      observer.observe(observerTarget.current);
+    }
+
+    return () => observer.disconnect();
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setCurrentPhotoIndex((prev) => {
+          const nextIndex = Math.min(prev + 1, photos.length - 1);
+
+          // Load more if we're near the end
+          if (
+            nextIndex >= photos.length - 2 &&
+            hasNextPage &&
+            !isFetchingNextPage
+          ) {
+            fetchNextPage();
+          }
+
+          return nextIndex;
+        });
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setCurrentPhotoIndex((prev) => Math.max(prev - 1, 0));
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [photos.length, hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  useEffect(() => {
+    if (photoRefs.current[currentPhotoIndex]) {
+      photoRefs.current[currentPhotoIndex]?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [currentPhotoIndex]);
+
+  if (areAlPhotosLoading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center bg-white">
+        <div className="text-gray-400 text-xl">Loading photos...</div>
+      </div>
+    );
+  }
+
+  if (loadAllPhotosError) {
+    return <h1>D:</h1>;
+  }
 
   return (
     <>
       <h1>Hello, Next.js!</h1>
-      {photoList?.map((id, index) => (
-        <Photo key={index} publicId={id} />
+      <p style={{ fontSize: "14px", color: "#666" }}>
+        Use ↑↓ arrow keys to navigate
+      </p>
+      {photos.map((id, index) => (
+        <div
+          key={index}
+          ref={(el) => (photoRefs.current[index] = el)}
+          style={{
+            border: currentPhotoIndex === index ? "3px solid blue" : "none",
+            padding: "10px",
+            margin: "10px 0",
+          }}
+        >
+          <Photo publicId={id} />
+        </div>
       ))}
+      <div
+        ref={observerTarget}
+        style={{ height: "100px", marginTop: "20px" }}
+      />
+      {isFetchingNextPage && (
+        <div className="w-full h-screen flex items-center justify-center bg-white">
+          <div className="text-gray-400 text-xl">Loading photos...</div>
+        </div>
+      )}
     </>
   );
 };
