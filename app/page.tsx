@@ -1,6 +1,7 @@
 "use client";
 
 import Photo from "./components/photo/photo";
+import { fetchPhotos } from "@/services/photosService";
 import {
   QueryClient,
   QueryClientProvider,
@@ -9,20 +10,6 @@ import {
 } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
-
-const fetchPhotos = async () => {
-  try {
-    const response = await fetch(`/api/photos`);
-    const data = await response.json();
-    const { resources } = data;
-    const result = resources
-      .sort((a, b) => a?.created_at < b?.created_at)
-      .map((el: any) => el.public_id);
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 const PhotoBlog = () => {
   const { data, isLoading, isError } = useQuery({
