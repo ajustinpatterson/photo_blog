@@ -121,7 +121,6 @@ const PhotoBlog = () => {
           key={index}
           ref={(el) => (photoRefs.current[index] = el)}
           style={{
-            border: currentPhotoIndex === index ? "3px solid blue" : "none",
             padding: "10px",
             margin: "10px 0",
           }}
