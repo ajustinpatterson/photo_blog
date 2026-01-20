@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Photo from "./components/Photo/Photo";
+import Loading from "./components/Loading/Loading";
 import { fetchPhotos, fetchPhotoPage } from "@/services/photosService";
 import {
   QueryClient,
@@ -9,6 +10,7 @@ import {
   useInfiniteQuery,
   useQuery,
 } from "@tanstack/react-query";
+import labels from "../master.json";
 
 const queryClient = new QueryClient();
 
@@ -128,15 +130,11 @@ const PhotoBlog = () => {
           <Photo publicId={id} />
         </div>
       ))}
+      {isFetchingNextPage && <Loading />}
       <div
         ref={observerTarget}
         style={{ height: "100px", marginTop: "20px" }}
       />
-      {isFetchingNextPage && (
-        <div className="w-full h-screen flex items-center justify-center bg-white">
-          <div className="text-gray-400 text-xl">Loading photos...</div>
-        </div>
-      )}
     </>
   );
 };
