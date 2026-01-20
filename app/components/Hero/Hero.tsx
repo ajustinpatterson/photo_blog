@@ -1,13 +1,12 @@
-import React from "react";
-import hero from "./hero.module.css";
+import "./hero.module.css";
 
 export default function Hero() {
   return (
-    <div className={hero.heroContainer}>
+    <div className="heroContainer">
       <img
-        src="bgHeader.jpg"
+        src="/assets/bgHeader.jpg"
         alt="horses grazing on a pampa"
-        className={hero.heroBG}
+        className="heroBG"
       />
     </div>
   );
