@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+
 import Photo from "./components/Photo/Photo";
 import Loading from "./components/Loading/Loading";
 import Hero from "./components/Hero/Hero";
+
 import { fetchPhotos, fetchPhotoPage } from "@/services/photosService";
 import {
   QueryClient,
@@ -11,6 +13,9 @@ import {
   useInfiniteQuery,
   useQuery,
 } from "@tanstack/react-query";
+
+import { useTransition, animated } from "react-spring";
+
 import labels from "../master.json";
 
 const queryClient = new QueryClient();
@@ -101,6 +106,15 @@ const PhotoBlog = () => {
     }
   }, [currentPhotoIndex]);
 
+  const transitions = useTransition(isFetchingNextPage, {
+    key: isFetchingNextPage,
+    from: { y: 0, opacity: 1 },
+    enter: { y: 10, opacity: 1 },
+    leave: { y: 0, opacity: 1 },
+    config: { duration: 500 },
+    unique: true,
+  });
+
   if (areAlPhotosLoading) {
     return (
       <div className="w-full h-screen flex items-center justify-center bg-white">
@@ -132,7 +146,12 @@ const PhotoBlog = () => {
           <Photo publicId={id} />
         </div>
       ))}
-      {isFetchingNextPage && <Loading />}
+      {isFetchingNextPage &&
+        transitions((style, i) => (
+          <animated.div style={style}>
+            <Loading />
+          </animated.div>
+        ))}
       <div
         ref={observerTarget}
         style={{ height: "100px", marginTop: "20px" }}
