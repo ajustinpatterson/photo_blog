@@ -29,13 +29,8 @@ export default function TopDrawer() {
   }, []);
 
   return (
-    <animated.div
-      onMouseEnter={trigger}
-      onMouseLeave={exit}
-      className="top-drawer-container"
-      style={props}
-    >
+    <div className="top-drawer-container">
       <div className="top-drawer-text">Everyday Shadows</div>
-    </animated.div>
+    </div>
   );
 }
