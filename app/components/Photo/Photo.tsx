@@ -7,7 +7,6 @@ const Photo = ({ publicId }: { publicId: string }) => {
 
   return (
     <div className="photoPostContainer">
-      {/* <img alt="alt" className='photoPost' src={photo.secureUrl} /> */}
       <CldImage
         width="960"
         height="600"
