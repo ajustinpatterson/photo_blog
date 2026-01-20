@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSpring, animated } from "react-spring";
 
-import "./topdrawer.module.scss";
+import topdrawer from "./topdrawer.module.css";
 
 export default function TopDrawer() {
   const [isBooped, setIsBooped] = useState(false);
@@ -29,8 +29,8 @@ export default function TopDrawer() {
   }, []);
 
   return (
-    <div className="top-drawer-container">
-      <div className="top-drawer-text">Everyday Shadows</div>
+    <div className={topdrawer.container}>
+      <div className={topdrawer.text}>Everyday Shadows</div>
     </div>
   );
 }

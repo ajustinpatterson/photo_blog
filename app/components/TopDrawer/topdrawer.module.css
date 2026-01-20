@@ -1,4 +1,4 @@
-.top-drawer-container {
+.container {
   position: fixed;
   text-align: center;
   margin: auto;
@@ -9,6 +9,6 @@
   top: 0;
 }
 
-.top-drawer-text {
+.text {
   margin-top: 0.5rem;
 }
