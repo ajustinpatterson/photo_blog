@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Photo from "./components/photo/photo";
+import Photo from "./components/Photo/Photo";
 import { fetchPhotos, fetchPhotoPage } from "@/services/photosService";
 import {
   QueryClient,
