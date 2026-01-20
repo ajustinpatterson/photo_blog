@@ -1,5 +1,5 @@
 .container {
-  position: fixed;
+  position: absolute;
   text-align: center;
   margin: auto;
   width: 100%;

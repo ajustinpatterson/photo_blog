@@ -131,7 +131,15 @@ const PhotoBlog = () => {
   return (
     <>
       <TopDrawer />
-      <p style={{ fontSize: "14px", color: "#666" }}>
+      <p
+        style={{
+          textAlign: "center",
+          position: "relative",
+          top: "2rem",
+          fontSize: "14px",
+          color: "#666",
+        }}
+      >
         Use ↑↓ arrow keys to navigate
       </p>
       <Hero />
