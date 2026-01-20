@@ -6,6 +6,7 @@ import Photo from "./components/Photo/Photo";
 import Loading from "./components/Loading/Loading";
 import Hero from "./components/Hero/Hero";
 import TopDrawer from "./components/TopDrawer/TopDrawer";
+import Post from "./components/Post/Post";
 
 import { fetchPhotos, fetchPhotoPage } from "@/services/photosService";
 import {
@@ -16,6 +17,8 @@ import {
 } from "@tanstack/react-query";
 
 import { useTransition, animated } from "react-spring";
+
+import photoblog from "./page.module.css";
 
 import labels from "../master.json";
 
@@ -129,7 +132,7 @@ const PhotoBlog = () => {
   }
 
   return (
-    <>
+    <div className={photoblog.mainContainer}>
       <TopDrawer />
       <p
         style={{
@@ -144,16 +147,7 @@ const PhotoBlog = () => {
       </p>
       <Hero />
       {photos.map((id, index) => (
-        <div
-          key={index}
-          ref={(el) => (photoRefs.current[index] = el)}
-          style={{
-            padding: "10px",
-            margin: "10px 0",
-          }}
-        >
-          <Photo publicId={id} />
-        </div>
+        <Post key={index} publicId={id} />
       ))}
       {isFetchingNextPage &&
         transitions((style, i) => (
@@ -165,7 +159,7 @@ const PhotoBlog = () => {
         ref={observerTarget}
         style={{ height: "100px", marginTop: "20px" }}
       />
-    </>
+    </div>
   );
 };
 

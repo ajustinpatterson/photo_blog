@@ -1,16 +1,15 @@
 import React from "react";
 
 import PhotoCaption from "./PhotoCaption/PhotoCaption";
-import PhotoDate from "./PhotoDate/PhotoDate";
 
 import container from "./photoinfocontainer.module.css";
 
-export default function PhotoInfoContainer({ photo }) {
-  const { created, context } = photo;
+export default function PhotoInfoContainer({
+  caption,
+}: Readonly<{ caption: string }>) {
   return (
     <div className={container.photoInfoContainer}>
-      <PhotoDate date={created} />
-      <PhotoCaption context={context && context?.custom} />
+      <PhotoCaption caption={caption} />
     </div>
   );
 }

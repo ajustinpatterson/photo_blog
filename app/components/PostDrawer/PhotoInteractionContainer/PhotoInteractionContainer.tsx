@@ -2,7 +2,7 @@ import React from "react";
 
 import photointeractions from "./photointeractions.module.css";
 
-export default function PhotoInteractionContainer({ photo }) {
+export default function PhotoInteractionContainer() {
   // TODO: get icon for button, implement share logic
   return (
     <div className={photointeractions.container}>

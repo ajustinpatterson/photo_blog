@@ -1,13 +1,11 @@
-import React from "react";
-
-import PhotoResource from "./PhotoResource/PhotoResource";
+import Photo from "../Photo/Photo";
 
 import post from "./post.module.css";
 
-export default function Post({ photo }) {
+export default function Post({ publicId }: { publicId: string }) {
   return (
     <div className={post.post}>
-      <PhotoResource photo={photo} />
+      <Photo publicId={publicId} />
     </div>
   );
 }

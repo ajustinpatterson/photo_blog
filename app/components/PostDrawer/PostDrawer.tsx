@@ -6,7 +6,7 @@ import PhotoInteractionContainer from "./PhotoInteractionContainer/PhotoInteract
 
 import postdrawer from "./postdrawer.module.css";
 
-export default function PostDrawer({ photo }) {
+export default function PostDrawer({ caption }: Readonly<{ caption: string }>) {
   const [isBooped, setIsBooped] = useState(false);
 
   const TIMING = 150;
@@ -18,7 +18,7 @@ export default function PostDrawer({ photo }) {
       from: { y: 0, opacity: 0 },
       to: isBooped ? { y: -10, opacity: 1 } : 0,
     }),
-    []
+    [],
   );
 
   const trigger = () => {
@@ -40,8 +40,8 @@ export default function PostDrawer({ photo }) {
       className={postdrawer.postDrawerContainer}
       style={props}
     >
-      <PhotoInfoContainer photo={photo} />
-      <PhotoInteractionContainer photo={photo} />
+      {caption && <PhotoInfoContainer caption={caption} />}
+      <PhotoInteractionContainer />
     </animated.div>
   );
 }
