@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import Photo from "./components/Photo/Photo";
 import Loading from "./components/Loading/Loading";
 import Hero from "./components/Hero/Hero";
 import TopDrawer from "./components/TopDrawer/TopDrawer";
 import Post from "./components/Post/Post";
+import KeyNav from "./components/KeyNav/KeyNav";
 
 import { fetchPhotos, fetchPhotoPage } from "@/services/photosService";
 import {
@@ -135,17 +135,7 @@ const PhotoBlog = () => {
     <>
       <div className={photoblog.mainContainer}>
         <TopDrawer />
-        <p
-          style={{
-            textAlign: "center",
-            position: "relative",
-            top: "2rem",
-            fontSize: "14px",
-            color: "#666",
-          }}
-        >
-          Use ↑↓ arrow keys to navigate
-        </p>
+        <KeyNav />
         <Hero />
         {photos.map((id, index) => (
           <Post key={index} publicId={id} />
