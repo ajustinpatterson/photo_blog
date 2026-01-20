@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useSpring, animated, config } from "react-spring";
+import { useEffect, useState } from "react";
+import { useSpring, animated } from "react-spring";
 
-import topdrawer from "./topdrawer.module.css";
+import "./topdrawer.module.scss";
 
 export default function TopDrawer() {
   const [isBooped, setIsBooped] = useState(false);
@@ -13,7 +13,7 @@ export default function TopDrawer() {
       from: { y: 0, opacity: 1 },
       to: isBooped ? { y: 0, opacity: 1 } : 0,
     }),
-    []
+    [],
   );
 
   const trigger = () => {
@@ -32,10 +32,10 @@ export default function TopDrawer() {
     <animated.div
       onMouseEnter={trigger}
       onMouseLeave={exit}
-      className={topdrawer.container}
+      className="top-drawer-container"
       style={props}
     >
-      <div className={topdrawer.text}>Everyday Shadows</div>
+      <div className="top-drawer-text">Everyday Shadows</div>
     </animated.div>
   );
 }

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Photo from "./components/Photo/Photo";
 import Loading from "./components/Loading/Loading";
 import Hero from "./components/Hero/Hero";
+import TopDrawer from "./components/TopDrawer/TopDrawer";
 
 import { fetchPhotos, fetchPhotoPage } from "@/services/photosService";
 import {
@@ -129,7 +130,7 @@ const PhotoBlog = () => {
 
   return (
     <>
-      <h1>Hello, Next.js!</h1>
+      <TopDrawer />
       <p style={{ fontSize: "14px", color: "#666" }}>
         Use ↑↓ arrow keys to navigate
       </p>
