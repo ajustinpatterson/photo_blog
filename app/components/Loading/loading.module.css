@@ -1,0 +1,14 @@
+.bar {
+  font-size: 12px;
+  text-align: center;
+  margin: auto;
+  width: 100%;
+  height: 1.5rem;
+  border-radius: 10px;
+  bottom: 2rem;
+  background: rgba(224, 223, 223, 0.5);
+  font-style: italic;
+  position: fixed;
+  height: 3rem;
+  bottom: 0;
+}
