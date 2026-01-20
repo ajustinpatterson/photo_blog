@@ -132,34 +132,36 @@ const PhotoBlog = () => {
   }
 
   return (
-    <div className={photoblog.mainContainer}>
-      <TopDrawer />
-      <p
-        style={{
-          textAlign: "center",
-          position: "relative",
-          top: "2rem",
-          fontSize: "14px",
-          color: "#666",
-        }}
-      >
-        Use ↑↓ arrow keys to navigate
-      </p>
-      <Hero />
-      {photos.map((id, index) => (
-        <Post key={index} publicId={id} />
-      ))}
-      {isFetchingNextPage &&
-        transitions((style, i) => (
-          <animated.div style={style}>
-            <Loading />
-          </animated.div>
+    <>
+      <div className={photoblog.mainContainer}>
+        <TopDrawer />
+        <p
+          style={{
+            textAlign: "center",
+            position: "relative",
+            top: "2rem",
+            fontSize: "14px",
+            color: "#666",
+          }}
+        >
+          Use ↑↓ arrow keys to navigate
+        </p>
+        <Hero />
+        {photos.map((id, index) => (
+          <Post key={index} publicId={id} />
         ))}
+        {isFetchingNextPage &&
+          transitions((style, i) => (
+            <animated.div style={style}>
+              <Loading />
+            </animated.div>
+          ))}
+      </div>
       <div
         ref={observerTarget}
         style={{ height: "100px", marginTop: "20px" }}
       />
-    </div>
+    </>
   );
 };
 
