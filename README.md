@@ -44,3 +44,4 @@ TODO:
 - Tailwind CSS
 - Transfer logic from v1
 - ZOD query validation
+- if EXIF data for photo ? toaster showing data : toaster with "no exif data available" message
