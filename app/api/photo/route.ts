@@ -6,12 +6,17 @@ import {
   BASE_URL,
   PHOTO_ENDPOINT,
   TAG,
+  API_KEY,
+  CLOUDINARY_KEY,
+  BASE_NODE_ENDPOINT,
+  PHOTO_INDV_ENDPOINT,
+  WITH_METADATA,
 } from "../../../constants";
 
-export async function GET() {
+export async function GET(request: Request, photoID: string) {
   try {
     const response = await fetch(
-      `${PROTOCOL}://${BASE_URL}/${CLOUDINARY_CLOUD_NAME}/${PHOTO_ENDPOINT}/${TAG}.json?media_metadata=true`,
+      `${PROTOCOL}://${API_KEY}:${CLOUDINARY_KEY}@${BASE_NODE_ENDPOINT}/${PHOTO_INDV_ENDPOINT}/${photoID}${WITH_METADATA}`,
       { method: "GET" },
     );
 

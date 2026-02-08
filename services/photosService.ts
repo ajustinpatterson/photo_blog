@@ -6,7 +6,10 @@ const fetchPhotos = async () => {
     const data = await response.json();
     const { resources } = data;
     const result = resources
-      .sort((a, b) => a?.created_at > b?.created_at)
+      .sort(
+        (a: Record<string, string>, b: Record<string, string>) =>
+          a?.created_at > b?.created_at,
+      )
       .map((el: any) => el.public_id);
     return result;
   } catch (error) {
@@ -30,4 +33,14 @@ const fetchPhotoPage = async ({
   };
 };
 
-export { fetchPhotos, fetchPhotoPage };
+const fetchPhotoMetadata = async (photoId: string) => {
+  try {
+    const response = await fetch(`/api/photo/${photoId}`, { method: "GET" });
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { fetchPhotos, fetchPhotoPage, fetchPhotoMetadata };

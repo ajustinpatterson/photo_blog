@@ -1,12 +1,28 @@
+import { useEffect, useState } from "react";
 import { CldImage } from "next-cloudinary";
+
+import { useQuery } from "@tanstack/react-query";
+import { fetchPhotoMetadata } from "@/services/photosService";
 
 import PostDrawer from "../PostDrawer/PostDrawer";
 
 import photo from "./photo.module.css";
 
 const Photo = ({ publicId }: { publicId: string }) => {
+  const [metadata, setMetadata] = useState(null);
   // TODO: if no caption, do not show drawer
   const caption = null;
+  /*   const {
+    data: metadata,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["photo-metadata", publicId],
+    queryFn: ({ queryKey }) => {
+      const [, photoId] = queryKey;
+      return fetchPhotoMetadata(photoId as string);
+    },
+  }); */
 
   return (
     <div className={photo.photoPostContainer}>

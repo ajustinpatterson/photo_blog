@@ -137,7 +137,8 @@ const PhotoBlog = () => {
         <TopDrawer />
         <KeyNav />
         <Hero />
-        {photos.map((id, index) => (
+        {/* Temp cutoff to make sure we get exif data and limit calls */}
+        {photos.slice(0).map((id, index) => (
           <Post key={index} publicId={id} />
         ))}
         {isFetchingNextPage &&
