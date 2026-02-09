@@ -24,6 +24,14 @@ const Photo = ({ publicId }: { publicId: string }) => {
     },
   }); */
 
+  useEffect(() => {
+    if (!Boolean(metadata)) {
+      fetchPhotoMetadata(publicId).then((data) =>
+        console.log("METADATA: ", data),
+      );
+    }
+  });
+
   return (
     <div className={photo.photoPostContainer}>
       <CldImage
