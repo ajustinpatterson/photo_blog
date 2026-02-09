@@ -12,17 +12,6 @@ const Photo = ({ publicId }: { publicId: string }) => {
   const [metadata, setMetadata] = useState(null);
   // TODO: if no caption, do not show drawer
   const caption = null;
-  /*   const {
-    data: metadata,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["photo-metadata", publicId],
-    queryFn: ({ queryKey }) => {
-      const [, photoId] = queryKey;
-      return fetchPhotoMetadata(photoId as string);
-    },
-  }); */
 
   useEffect(() => {
     if (!Boolean(metadata)) {

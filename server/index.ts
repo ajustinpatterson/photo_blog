@@ -1,10 +1,11 @@
 // Endpoint to hit: `${PROTOCOL}://${API_KEY}:${CLOUDINARY_KEY}@${BASE_NODE_ENDPOINT}/${CLOUDINARY_CLOUD_NAME}/${PHOTO_INDV_ENDPOINT}/${photoId}${WITH_METADATA}`
-import express, { Application } from "express";
-import { Request, Response } from "express";
+import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import axios from "axios";
 import cors, { CorsOptions } from "cors";
 import { log } from "console";
+
+import { formatMetadata } from "./controller/metadata";
 
 const router = express.Router();
 const app = express();
@@ -29,18 +30,17 @@ const corsOptions: CorsOptions = {
 };
 
 // TODO: add zod schema
+// TODO: debug ERR_HTTP_HEADERS_SENT
 const getPhotoMetadata = async (req: Request, res: Response) => {
-  log("ENV:", process.env);
-  log("REQ:", req.params);
   const { photoId } = req.params;
   try {
     const response = await axios.get(
       `https://${process.env.CLOUDINARY_API_KEY}:${process.env.CLOUDINARY_KEY}@${process.env.BASE_NODE_ENDPOINT}/${process.env.CLOUDINARY_CLOUD_NAME}/${process.env.PHOTO_INDV_ENDPOINT}/${photoId}?media_metadata=1`,
     );
-    log("RES:", response.data);
     if (response?.data) {
+      const result = formatMetadata(response.data);
       res.status(200);
-      res.send(response.data);
+      res.send(result);
     }
     res.status(404);
     res.send({});
