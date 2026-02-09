@@ -30,22 +30,23 @@ const corsOptions: CorsOptions = {
 
 // TODO: add zod schema
 const getPhotoMetadata = async (req: Request, res: Response) => {
-  let result = {};
-  const { photoId } = req.query;
+  const { photoId } = req.params;
   try {
     const { data } = await axios.get(
       `https://${process.env.API_KEY}:${process.env.CLOUDINARY_KEY}@${process.env.BASE_NODE_ENDPOINT}/${process.env.CLOUDINARY_CLOUD_NAME}/${process.env.PHOTO_INDV_ENDPOINT}/${photoId}?media_metadata=1`,
     );
     if (data) {
-      result = data;
+      res.status(200);
+      res.send(data);
     }
-    return result;
+    res.status(404);
+    res.send({});
   } catch (error) {
     console.error(error);
   }
 };
 
-router.use("/metadata", getPhotoMetadata);
+router.get("/metadata/:photoId", getPhotoMetadata);
 
 app.use(express.json());
 app.use(cors(corsOptions));

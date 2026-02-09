@@ -35,7 +35,9 @@ const fetchPhotoPage = async ({
 
 const fetchPhotoMetadata = async (photoId: string) => {
   try {
-    const response = await fetch(`/api/photo/${photoId}`, { method: "GET" });
+    const response = await fetch(`http://localhost:3001/metadata/${photoId}`, {
+      method: "GET",
+    });
     const data = await response.json();
     console.log(data);
   } catch (error) {
