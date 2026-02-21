@@ -1,17 +1,11 @@
 import { NextResponse } from "next/server";
 
-import {
-  PROTOCOL,
-  CLOUDINARY_CLOUD_NAME,
-  BASE_URL,
-  PHOTO_ENDPOINT,
-  TAG,
-} from "../../../constants";
+import { BASE_URL, PHOTO_ENDPOINT, TAG } from "../../../constants";
 
 export async function GET() {
   try {
     const response = await fetch(
-      `${PROTOCOL}://${BASE_URL}/${CLOUDINARY_CLOUD_NAME}/${PHOTO_ENDPOINT}/${TAG}.json?media_metadata=true`,
+      `https://${BASE_URL}/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/${PHOTO_ENDPOINT}/${TAG}.json`,
       { method: "GET" },
     );
 

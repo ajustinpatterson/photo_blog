@@ -1,4 +1,4 @@
-import { PHOTOS_PER_PAGE } from "@/constants";
+import { HOST, PORT, PHOTOS_PER_PAGE } from "@/constants";
 
 const fetchPhotos = async () => {
   try {
@@ -35,7 +35,7 @@ const fetchPhotoPage = async ({
 
 const fetchPhotoMetadata = async (photoId: string) => {
   try {
-    const response = await fetch(`http://localhost:3001/metadata/${photoId}`, {
+    const response = await fetch(`http://${HOST}:${PORT}/metadata/${photoId}`, {
       method: "GET",
     });
     const data = await response.json();
