@@ -5,6 +5,8 @@ import { fetchPhotoMetadata } from "@/services/photosService";
 
 import PostDrawer from "../PostDrawer/PostDrawer";
 
+import { EXIFData } from "@/types";
+
 import photo from "./photo.module.css";
 
 const Photo = ({ publicId }: { publicId: string }) => {
@@ -31,7 +33,7 @@ const Photo = ({ publicId }: { publicId: string }) => {
         alt="Description of my image"
       />
       {/* We don't have to show the user an error, just don't display photo drawer in error case */}
-      {!isLoading && !isError && <PostDrawer caption="" />}
+      {!isError && !isLoading && <PostDrawer exifData={metadata as EXIFData} />}
     </div>
   );
 };
