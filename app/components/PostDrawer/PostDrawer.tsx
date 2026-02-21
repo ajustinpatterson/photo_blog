@@ -29,8 +29,6 @@ export default function PostDrawer({
   const speed = ShutterSpeedValue || ExposureTime;
   const aperture = FNumber || ApertureValue;
 
-  const TIMING = 150;
-
   const [props] = useSpring(
     () => ({
       display: "inline-block",

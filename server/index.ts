@@ -29,7 +29,6 @@ const corsOptions: CorsOptions = {
 };
 
 // TODO: add zod schema
-// TODO: debug ERR_HTTP_HEADERS_SENT
 const getPhotoMetadata = async (req: Request, res: Response) => {
   const { photoId } = req.params;
   try {
@@ -40,9 +39,10 @@ const getPhotoMetadata = async (req: Request, res: Response) => {
       const result = formatMetadata(response.data);
       res.status(200);
       res.send(result);
+    } else {
+      res.status(404);
+      res.send({});
     }
-    res.status(404);
-    res.send({});
   } catch (error) {
     console.error(error);
   }
