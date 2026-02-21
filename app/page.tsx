@@ -20,6 +20,7 @@ import { useTransition, animated } from "react-spring";
 
 import photoblog from "./page.module.css";
 
+// TODO: store labels here
 import labels from "../master.json";
 
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ const PhotoBlog = () => {
   } = useQuery({
     queryKey: ["allPhotos"],
     queryFn: fetchPhotos,
+    staleTime: Infinity,
   });
 
   const {
@@ -48,7 +50,8 @@ const PhotoBlog = () => {
     queryFn: fetchPhotoPage,
     initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.nextPage,
-    enabled: !!allPhotos && allPhotos.length > 0, // Only run when we have photos
+    enabled: !!allPhotos && allPhotos.length > 0,
+    staleTime: Infinity,
   });
 
   const photos = photoPageData?.pages.flatMap((page) => page.photos) || [];

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { CldImage } from "next-cloudinary";
 
 import { useQuery } from "@tanstack/react-query";
@@ -9,16 +8,16 @@ import PostDrawer from "../PostDrawer/PostDrawer";
 import photo from "./photo.module.css";
 
 const Photo = ({ publicId }: { publicId: string }) => {
-  const [metadata, setMetadata] = useState(null);
-  // TODO: if no caption, do not show drawer
+  // TODO: extract to hook with dependency
   const caption = null;
-
-  useEffect(() => {
-    if (!Boolean(metadata)) {
-      fetchPhotoMetadata(publicId).then((data) =>
-        console.log("METADATA: ", data),
-      );
-    }
+  const {
+    data: metadata,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["photoMetadata"],
+    queryFn: fetchPhotoMetadata(publicId),
+    staleTime: Infinity,
   });
 
   return (
@@ -31,6 +30,8 @@ const Photo = ({ publicId }: { publicId: string }) => {
         sizes="100vw"
         alt="Description of my image"
       />
+      {/* We don't have to show the user an error, just don't display photo drawer in error case */}
+      {!isLoading && !isError && <PostDrawer caption="" />}
     </div>
   );
 };
