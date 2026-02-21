@@ -1,9 +1,8 @@
-// Endpoint to hit: `${PROTOCOL}://${API_KEY}:${CLOUDINARY_KEY}@${BASE_NODE_ENDPOINT}/${CLOUDINARY_CLOUD_NAME}/${PHOTO_INDV_ENDPOINT}/${photoId}${WITH_METADATA}`
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import axios from "axios";
 import cors, { CorsOptions } from "cors";
-import { log } from "console";
+import { log } from "node:console";
 
 import { formatMetadata } from "./controller/metadata";
 
