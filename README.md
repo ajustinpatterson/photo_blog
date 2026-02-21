@@ -42,6 +42,7 @@ For more details, see [route.js file convention](https://nextjs.org/docs/app/api
 TODO:
 
 - Transfer logic from v1
+- Use CSS Tachyons
 - TYPES
 - ZOD query validation
 - if EXIF data for photo ? toaster showing data : toaster with "no exif data available" message
