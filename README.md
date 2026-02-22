@@ -1,8 +1,10 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/create-next-app).
+This is a [Next.js](https://nextjs.org) project in Typescript bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/create-next-app).
 
-Although it's very straightforward, you do need to start the BFF/data layer server to get any data for individual photos.
+Other libraries include **React Spring**, **React Query**, **CSS Tachyons**, **Cloudinary**, and **Commitizen** and there is a data layer stack built using **Express** and **axios** to perform REST calls to the Cloudinary admin API for individual photo EXIF data.
 
 ## Getting Started
+
+Although it's very straightforward, you do need to start the BFF/data layer server to get any data for individual photos.
 
 First, run the BFF server:
 
