@@ -21,14 +21,13 @@ export const formatMetadata = ({
     ...(context?.custom?.description && {
       description: context.custom.description,
     }),
+    ...(FNumber || (ApertureValue && { FStop: FNumber || ApertureValue })),
+    ...(ShutterSpeedValue ||
+      (ExposureTime && { ShutterSpeed: ShutterSpeedValue || ExposureTime })),
     Make,
     Model,
-    ExposureTime,
-    FNumber,
     ISO,
     CreateDate,
-    ShutterSpeedValue,
-    ApertureValue,
     ExposureCompensation,
     Flash,
     FocalLength,
