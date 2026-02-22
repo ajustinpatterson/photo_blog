@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import Loading from "./components/Loading/Loading";
 import Hero from "./components/Hero/Hero";
-import TopDrawer from "./components/TopDrawer/TopDrawer";
+// import TopDrawer from "./components/TopDrawer/TopDrawer";
 import Post from "./components/Post/Post";
 import KeyNav from "./components/KeyNav/KeyNav";
 
@@ -137,7 +137,8 @@ const PhotoBlog = () => {
   return (
     <>
       <div className={photoblog.mainContainer}>
-        <TopDrawer />
+        {/* Until we have a better use case, hide top draeer, as Hero contains a title */}
+        {/* <TopDrawer /> */}
         <KeyNav />
         <Hero />
         {/* Temp cutoff to make sure we get exif data and limit calls */}
