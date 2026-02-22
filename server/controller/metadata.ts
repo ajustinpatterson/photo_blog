@@ -17,6 +17,10 @@ export const formatMetadata = ({
   } = media_metadata;
 
   return {
+    Camera: {
+      ...(Make && {Make})
+      ...(Model && Model)
+    },
     ...(context?.custom?.caption && { caption: context.custom.caption }),
     ...(context?.custom?.description && {
       description: context.custom.description,
@@ -24,8 +28,6 @@ export const formatMetadata = ({
     ...(FNumber || (ApertureValue && { FStop: FNumber || ApertureValue })),
     ...(ShutterSpeedValue ||
       (ExposureTime && { ShutterSpeed: ShutterSpeedValue || ExposureTime })),
-    Make,
-    Model,
     ISO,
     CreateDate,
     ExposureCompensation,
