@@ -24,8 +24,6 @@ import labels from "../master.json";
 const queryClient = new QueryClient();
 
 const PhotoBlog = () => {
-  const observerTarget = useRef<HTMLDivElement>(null);
-
   const {
     data: allPhotos,
     isLoading: areAlPhotosLoading,
@@ -50,6 +48,12 @@ const PhotoBlog = () => {
     staleTime: Infinity,
   });
 
+  const pageRef = useRef({
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  });
+
   const photos = photoPageData?.pages.flatMap((page) => page.photos) || [];
 
   useEffect(() => {
@@ -57,24 +61,24 @@ const PhotoBlog = () => {
   }, []);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage();
-        }
-      },
-      {
-        threshold: 0.1,
-        rootMargin: "100px",
-      },
-    );
-
-    if (observerTarget.current) {
-      observer.observe(observerTarget.current);
-    }
-
-    return () => observer.disconnect();
+    pageRef.current = { hasNextPage, isFetchingNextPage, fetchNextPage };
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const bottom =
+        Math.ceil(window.innerHeight + window.scrollY) >=
+        document.documentElement.scrollHeight;
+      const { hasNextPage, isFetchingNextPage, fetchNextPage } =
+        pageRef.current;
+      if (bottom && hasNextPage && !isFetchingNextPage) {
+        fetchNextPage();
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   if (areAlPhotosLoading) {
     return (
@@ -108,11 +112,6 @@ const PhotoBlog = () => {
           </div>
         )}
       </div>
-      <div
-        data-testId="oberver-target"
-        ref={observerTarget}
-        className={photoblog.observerRef}
-      />
     </>
   );
 };
