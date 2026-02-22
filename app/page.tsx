@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import Loading from "./components/Loading/Loading";
 import Hero from "./components/Hero/Hero";
 // import TopDrawer from "./components/TopDrawer/TopDrawer";
 import Post from "./components/Post/Post";
-import KeyNav from "./components/KeyNav/KeyNav";
+// import KeyNav from "./components/KeyNav/KeyNav";
 
 import { fetchPhotos, fetchPhotoPage } from "@/services/photosService";
 import {
