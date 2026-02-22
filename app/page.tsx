@@ -16,8 +16,6 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 
-import { useTransition, animated } from "react-spring";
-
 import photoblog from "./page.module.css";
 
 // TODO: store labels here
@@ -27,8 +25,6 @@ const queryClient = new QueryClient();
 
 const PhotoBlog = () => {
   const observerTarget = useRef<HTMLDivElement>(null);
-  const photoRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
 
   const {
     data: allPhotos,
@@ -80,52 +76,6 @@ const PhotoBlog = () => {
     return () => observer.disconnect();
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowDown") {
-        e.preventDefault();
-        setCurrentPhotoIndex((prev) => {
-          const nextIndex = Math.min(prev + 1, photos.length - 1);
-
-          // Load more if we're near the end
-          if (
-            nextIndex >= photos.length - 2 &&
-            hasNextPage &&
-            !isFetchingNextPage
-          ) {
-            fetchNextPage();
-          }
-
-          return nextIndex;
-        });
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        setCurrentPhotoIndex((prev) => Math.max(prev - 1, 0));
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [photos.length, hasNextPage, isFetchingNextPage, fetchNextPage]);
-
-  useEffect(() => {
-    if (photoRefs.current[currentPhotoIndex]) {
-      photoRefs.current[currentPhotoIndex]?.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }
-  }, [currentPhotoIndex]);
-
-  const transitions = useTransition(isFetchingNextPage, {
-    key: isFetchingNextPage,
-    from: { y: 0, opacity: 1 },
-    enter: { y: 10, opacity: 1 },
-    leave: { y: 0, opacity: 1 },
-    config: { duration: 500 },
-    unique: true,
-  });
-
   if (areAlPhotosLoading) {
     return (
       <div className="w-full h-screen flex items-center justify-center bg-white">
@@ -145,7 +95,8 @@ const PhotoBlog = () => {
       <div className={photoblog.mainContainer}>
         {/* Until we have a better use case, hide top drawer, as Hero contains a title */}
         {/* <TopDrawer /> */}
-        <KeyNav />
+        {/* And key nav, as it currently does not work */}
+        {/* <KeyNav /> */}
         <Hero />
         {/* Temp cutoff to make sure we get exif data and limit calls */}
         {photos.map((id, index) => (
@@ -159,7 +110,7 @@ const PhotoBlog = () => {
       </div>
       <div
         ref={observerTarget}
-        style={{ height: "100px", marginTop: "20px" }}
+        style={{ height: "100px", marginTop: "20px", bottom: "0" }}
       />
     </>
   );
