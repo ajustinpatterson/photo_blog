@@ -109,8 +109,9 @@ const PhotoBlog = () => {
         )}
       </div>
       <div
+        data-testId="oberver-target"
         ref={observerTarget}
-        style={{ height: "100px", marginTop: "20px", bottom: "0" }}
+        className={photoblog.observerRef}
       />
     </>
   );

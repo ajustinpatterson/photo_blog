@@ -4,3 +4,10 @@
   height: 100vh;
   margin: 0;
 }
+
+.observerRef {
+  height: 30rem;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
