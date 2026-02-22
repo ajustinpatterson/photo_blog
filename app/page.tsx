@@ -125,7 +125,9 @@ const PhotoBlog = () => {
   if (areAlPhotosLoading) {
     return (
       <div className="w-full h-screen flex items-center justify-center bg-white">
-        <div className="text-gray-400 text-xl">Loading photos...</div>
+        <div className="text-gray-400 text-xl">
+          {labels.loading.loadAllPhotosBlurb}
+        </div>
       </div>
     );
   }
@@ -142,7 +144,7 @@ const PhotoBlog = () => {
         <KeyNav />
         <Hero />
         {/* Temp cutoff to make sure we get exif data and limit calls */}
-        {photos.slice(0).map((id, index) => (
+        {photos.map((id, index) => (
           <Post key={index} publicId={id} />
         ))}
         {isFetchingNextPage &&
@@ -152,6 +154,7 @@ const PhotoBlog = () => {
             </animated.div>
           ))}
       </div>
+      {isFetchingNextPage && <Loading />}
       <div
         ref={observerTarget}
         style={{ height: "100px", marginTop: "20px" }}
