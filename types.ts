@@ -1,4 +1,5 @@
 export type EXIFData = {
+  Caption?: string;
   CreateDate?: string;
   Make?: string;
   Model?: string;

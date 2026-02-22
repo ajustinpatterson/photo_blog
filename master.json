@@ -3,12 +3,12 @@
     "blurb": "For there were no roads to begin with, but when many men pass one way, a road is made..."
   },
   "photoInfo": {
-    "FStop": "ƒ",
-    "ISO": "ISO",
-    "CreateDate": "Date",
-    "ShutterSpeed": "Shutter Speed",
-    "ExposureCompensation": "+/-",
-    "Flash": "🗲",
-    "FocalLength": "Focal Length"
+    "fStop": "ƒ",
+    "iso": "ISO",
+    "createDate": "Date",
+    "shutterSpeed": "Shutter Speed",
+    "exposureCompensation": "+/-",
+    "flash": "🗲",
+    "focalLength": "Focal Length"
   }
 }

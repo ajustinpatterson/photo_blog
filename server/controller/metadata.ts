@@ -43,7 +43,7 @@ export const formatMetadata = ({
     FocalLength,
   } = media_metadata;
   return {
-    ...(context?.custom?.caption && { caption: context.custom.caption }),
+    ...(context?.custom?.caption && { Caption: context.custom.caption }),
     ...((FNumber || ApertureValue) && { FStop: FNumber ?? ApertureValue }),
     ...((ShutterSpeedValue || ExposureTime) && {
       ShutterSpeed: ShutterSpeedValue ?? ExposureTime,
