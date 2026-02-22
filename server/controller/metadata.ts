@@ -27,7 +27,7 @@ export const formatMetadata = ({
 }: {
   media_metadata: MediaMetadata;
   context?: Context;
-}): MediaMetadata[] => {
+}): MediaMetadata => {
   const result: Record<string, unknown>[] = [];
   const {
     Make,
@@ -42,12 +42,8 @@ export const formatMetadata = ({
     Flash,
     FocalLength,
   } = media_metadata;
-
-  const processedMetadata = {
+  return {
     ...(context?.custom?.caption && { caption: context.custom.caption }),
-    ...(context?.custom?.description && {
-      description: context.custom.description,
-    }),
     ...((FNumber || ApertureValue) && { FStop: FNumber ?? ApertureValue }),
     ...((ShutterSpeedValue || ExposureTime) && {
       ShutterSpeed: ShutterSpeedValue ?? ExposureTime,
@@ -60,10 +56,4 @@ export const formatMetadata = ({
     Flash,
     FocalLength,
   };
-
-  for (const [key, value] of Object.entries(processedMetadata)) {
-    result.push({ [key]: value });
-  }
-
-  return result;
 };
