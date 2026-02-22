@@ -10,17 +10,20 @@ import { EXIFData } from "@/types";
 import photo from "./photo.module.css";
 
 const Photo = ({ publicId }: { publicId: string }) => {
-  // TODO: extract to hook with dependency
-  const caption = null;
   const {
     data: metadata,
+    error,
     isLoading,
     isError,
   } = useQuery({
     queryKey: ["photoMetadata"],
-    queryFn: fetchPhotoMetadata(publicId),
+    queryFn: () => fetchPhotoMetadata(publicId),
     staleTime: Infinity,
   });
+
+  if (error) {
+    console.warn(error);
+  }
 
   return (
     <div className={photo.photoPostContainer}>
@@ -33,7 +36,9 @@ const Photo = ({ publicId }: { publicId: string }) => {
         alt="Description of my image"
       />
       {/* We don't have to show the user an error, just don't display photo drawer in error case */}
-      {!isError && !isLoading && <PostDrawer exifData={metadata as EXIFData} />}
+      {!isError && !isLoading && Boolean(metadata) && (
+        <PostDrawer exifData={metadata as EXIFData} />
+      )}
     </div>
   );
 };
