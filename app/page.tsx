@@ -154,7 +154,6 @@ const PhotoBlog = () => {
             </animated.div>
           ))}
       </div>
-      {isFetchingNextPage && <Loading />}
       <div
         ref={observerTarget}
         style={{ height: "100px", marginTop: "20px" }}
