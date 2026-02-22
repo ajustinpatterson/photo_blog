@@ -1,48 +1,52 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/create-next-app).
 
+Although it's very straightforward, you do need to start the BFF/data layer server to get any data for individual photos.
+
 ## Getting Started
 
-First, run the development server:
+First, run the BFF server:
+
+```
+cd server
+npx tsx ./index.ts
+```
+
+Next, run the Next JS dev server:
 
 ```bash
+
 npm run dev
+
 # or
+
 yarn dev
+
 # or
+
 pnpm dev
+
 # or
+
 bun dev
+
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/route.ts`. The page auto-updates as you edit the file.
+## Background
 
-## Learn More
+Many of the choices made in this project were dictated by the shape of the data served by the Cloudinary API. For example, a Node server proved necessary since the admin API would not accept auth headers, even from a NExt JS API Route.
 
-To learn more about Next.js, take a look at the following resources:
+Although the project remains very much a work in progress, I feel it is already a good representation of the vision I had for it as a minimalist light-box sort of experience with a bit of nerdy photog data. It's as close to a bare-bones gallery as I can imagine getting in a browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Do not hesitate to submit a pull request if you feel it could do with some added features -- or check the TODOs below for info on what's coming next.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## TODO
 
-## Deploy on Vercel
+- TESTS
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## API Routes
-
-This directory contains example API routes for the headless API app.
-
-For more details, see [route.js file convention](https://nextjs.org/docs/app/api-reference/file-conventions/route).
-
-TODO:
-
-- Transfer logic from v1
-- Use CSS Tachyons
 - TYPES
+
+- Keyboard nav
+
 - ZOD query validation
-- if EXIF data for photo ? toaster showing data : toaster with "no exif data available" message
