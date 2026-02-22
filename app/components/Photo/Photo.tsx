@@ -16,7 +16,7 @@ const Photo = ({ publicId }: { publicId: string }) => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["photoMetadata"],
+    queryKey: [`photoMetadata-${publicId}`],
     queryFn: () => fetchPhotoMetadata(publicId),
     staleTime: Infinity,
   });

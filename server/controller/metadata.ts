@@ -28,7 +28,6 @@ export const formatMetadata = ({
   media_metadata: MediaMetadata;
   context?: Context;
 }): MediaMetadata => {
-  const result: Record<string, unknown>[] = [];
   const {
     Make,
     Model,
