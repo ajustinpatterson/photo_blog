@@ -57,6 +57,10 @@ const PhotoBlog = () => {
   const photos = photoPageData?.pages.flatMap((page) => page.photos) || [];
 
   useEffect(() => {
+    document.title = labels.title;
+  }, []);
+
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
@@ -139,7 +143,7 @@ const PhotoBlog = () => {
   return (
     <>
       <div className={photoblog.mainContainer}>
-        {/* Until we have a better use case, hide top draeer, as Hero contains a title */}
+        {/* Until we have a better use case, hide top drawer, as Hero contains a title */}
         {/* <TopDrawer /> */}
         <KeyNav />
         <Hero />
@@ -147,12 +151,11 @@ const PhotoBlog = () => {
         {photos.map((id, index) => (
           <Post key={index} publicId={id} />
         ))}
-        {isFetchingNextPage &&
-          transitions((style, i) => (
-            <animated.div style={style}>
-              <Loading />
-            </animated.div>
-          ))}
+        {isFetchingNextPage && (
+          <div>
+            <Loading />
+          </div>
+        )}
       </div>
       <div
         ref={observerTarget}
